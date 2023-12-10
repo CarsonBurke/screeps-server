@@ -1,6 +1,61 @@
+env:
+  backend:
+    MAPTOOL_USER: username
+    MAPTOOL_PASS: password
+version: latest
 mods:
   - screepsmod-auth
   - screepsmod-admin-utils
   - screepsmod-mongo
+  - screepsmod-map-tool
+  - screepsmod-dynamicmarket
+  # - screepsmod-bots
+  # - screepsmod-market
 bots:
-  simplebot: screepsbot-zeswarm
+  # simplebot: screepsbot-zeswarm
+  simplebot: the-international-screeps-bot
+  tooangel: screeps-bot-tooangel
+  overmind: screeps-bot-overmind
+extraPackages:
+  morgan: "*"
+localMods: ./mods
+backup:
+  dirs:
+  - tests
+  - bots/overmind
+  files:
+  - .screepsrc # You probably don't need this, just an example
+serverConfig:
+  welcomeText:  |
+    <style>.screepsplus h1{  text-align: center; }</style>
+    <div class="screepsplus">
+    <h1>ScreepsPlus</h1>
+    Wecome to the ScreepsPlus private server.<br>
+    Mods include screepsmod-auth and several custom mods to enable email notifications, control tickrate, power banks, portals, and other internal improvements.<br><br>
+    <div style="text-align: center">
+    This server is funded by backers on Patreon. <br>
+    <a target="_blank" href="https://www.patreon.com/bePatron?u=6867142" ><img src="https://c5.patreon.com/external/logo/become_a_patron_button.png"></a>
+    </div>
+  constants:
+    TEST_CONSTANT: 123
+    UPGRADE_POWER: 100
+    UPGRADE_CONTROLLER_POWER: 100
+    UPGRADE_COST: .001
+    BUILD_POWER: 100
+    BUILD_COST: .001
+    # BUILD_POWER: 100
+    # HARVEST_POWER: 100
+    REPAIR_POWER: 100000
+    REPAIR_COST: .0001
+    # SOURCE_ENERGY_CAPACITY: 600000
+    # CREEP_LIFE_TIME: 100000
+    # CREEP_SPAWN_TIME: 1
+  gclToCPU: true
+  maxCPU: 300
+  baseCPU: 100
+  stepCPU: 20
+# cli: # used for configuring cli client
+#   host: testing.hosting.screepspl.us
+#   port: 443 # https assumed when using 443
+#   username: admin
+#   password: notARealPassword
