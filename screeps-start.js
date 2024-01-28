@@ -123,18 +123,35 @@ const writeModsConfiguration = () => {
   console.log("Mods have been configured");
 };
 
+// Map from camelCase to snake_case
+const ServerConfigMap = {
+  runnersThreads: "runner_threads",
+  processorsCnt: "processors_cnt",
+  storageTimeout: "storage_timeout",
+  logConsole: "log_console",
+  logRotateKeep: "log_rotate_keep",
+  restartInterval: "restart_interval",
+};
+
 const start = async () => {
   installPackages();
   writeModsConfiguration();
 
   const screeps = require("@screeps/launcher");
-  await screeps.start(
-    {
-      steam_api_key: process.env.STEAM_KEY || config.steamKey,
-      storage_disable: false,
-    },
-    process.stdout,
-  );
+  const options = {
+    steam_api_key: process.env.STEAM_KEY || config.steamKey,
+    storage_disable: false,
+  };
+
+  const serverOptions = config.serverOptions || {};
+
+  for (const [configKey, optionsKey] of Object.entries(ServerConfigMap)) {
+    if (configKey in serverOptions) {
+      options[optionsKey] = serverOptions[configKey];
+    }
+  }
+
+  await screeps.start(options, process.stdout);
 };
 
 start().catch((err) => {
